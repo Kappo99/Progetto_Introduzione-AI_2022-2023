@@ -3,15 +3,15 @@
 Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1,…,sk a k caselle obiettivo g1,…,gk, su una scacchiera NxN, soggetta alla regola che due cavalli non possono occupare contemporaneamente sulla stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
 
 ### Domande di teoria
-**1. Calcolare la dimensione dello spazio degli stati in funzione di N e m**\
+#### Calcolare la dimensione dello spazio degli stati in funzione di N e m
 Il problema del trasferimento di k cavalieri da k posizioni di partenza a k posizioni obiettivo su una scacchiera N x N può essere formulato come un problema di ricerca nello spazio degli stati. La dimensione dello spazio degli stati dipende dal numero di possibili posizioni di partenza dei cavalieri e dal numero di possibili azioni per ogni stato. In particolare, ci sono (N^2 choose k) possibili posizioni di partenza per k cavalieri su una scacchiera NxN e ogni stato può generare fino a m^k nuovi stati.
 Quindi, la dimensione totale dello spazio degli stati è pari a:
 (N^2 choose k) * (m^k)^dove choose denota il coefficiente binomiale.
 
-**2. Qual è il massimo fattore di ramificazione in questo spazio degli stati, espresso in funzione di k?**\
+#### Qual è il massimo fattore di ramificazione in questo spazio degli stati, espresso in funzione di k?
 In ogni stato, ogni cavaliere ha al massimo 8 possibili mosse. Quindi il massimo fattore di ramificazione in questo spazio degli stati è pari a 8^k.
 
-**3. Definire delle euristiche ammissibili**\
+#### Definire delle euristiche ammissibili
 La funzione euristica è una funzione che stima il costo rimanente per arrivare alla soluzione ottimale partendo dallo stato corrente. In altre parole, l'euristica cerca di fornire una stima della distanza tra lo stato corrente e lo stato obiettivo. Questa stima viene utilizzata dall'algoritmo A\* per selezionare la prossima mossa da effettuare.
 
 In generale, l'euristica deve essere ammissibile, ovvero non deve mai sovrastimare il costo reale per raggiungere la soluzione. Ad esempio, se consideriamo il problema del labirinto, l'euristica potrebbe essere la distanza euclidea tra la posizione corrente e la posizione obiettivo, ma questa euristica potrebbe sovrastimare il costo reale se ci sono pareti o ostacoli nel mezzo.
@@ -23,18 +23,18 @@ Le seguenti euristiche ammissibili possono essere utilizzate per risolvere il pr
 
 Per il problema dei cavalli sulla scacchiera, una buona euristica potrebbe essere la distanza di Chebyshev tra la posizione corrente del cavallo e la posizione obiettivo, ovvero la distanza minima tra due punti sulla scacchiera muovendosi solo in orizzontale, verticale o diagonale. Questa euristica è ammissibile perché la distanza di Chebyshev è sempre uguale o inferiore alla distanza effettiva necessaria per raggiungere la soluzione.
 
-**4. Implementare un programma che risolva questo problema usando almeno tre diversi algoritmi di ricerca**\
+#### Implementare un programma che risolva questo problema usando almeno tre diversi algoritmi di ricerca
 Per risolvere il problema, possono essere utilizzati diversi algoritmi di ricerca, tra cui:
 - ricerca in ampiezza (BFS)
 - ricerca in profondità (DFS)
 - algoritmo A\* con le euristiche sopra menzionate
 
-##Spiegazione algoritmi
+## Spiegazione algoritmi
 
-###Ricerca in ampiezza (BFS)
+### Ricerca in ampiezza (BFS)
 **BFS (Breadth-First Search)** è un algoritmo di ricerca che esplora tutti i nodi adiacenti di un nodo prima di muoversi in profondità. In altre parole, esplora i nodi livello per livello e garantisce che la soluzione ottimale sia trovata solo quando la soluzione corrente ha il minor numero di mosse possibili. Tuttavia, BFS può richiedere molta memoria per tenere traccia dei nodi visitati in quanto deve mantenere una coda dei nodi visitati.
 
-####Codice
+#### Codice
 ```
 def bfs(start, goal, k, N):
     queue = Queue()
@@ -57,11 +57,11 @@ def bfs(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 ```
 
-####Note
+#### Note
 L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti con un numero di mosse da 1 a max_moves. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
 
-###Ricerca in profondità (DFS)
+### Ricerca in profondità (DFS)
 **DFS (Depth-First Search)** è un algoritmo di ricerca che esplora un ramo del grafo il più possibile prima di tornare indietro e esplorare il prossimo ramo. In altre parole, esplora il grafo in profondità prima di tornare indietro. A differenza di BFS, DFS non garantisce di trovare la soluzione ottimale, ma può essere più efficiente in termini di memoria.
 
-###Algoritmo A\*
+### Algoritmo A\*
 **A\*** è un algoritmo di ricerca informata che combina l'approccio di BFS con una funzione euristica per migliorare l'efficienza di BFS. La funzione euristica calcola un'euristica del costo dallo stato corrente al goal e usa questa informazione per guidare l'algoritmo nella direzione giusta. A\* garantisce di trovare la soluzione ottimale se la funzione euristica è ammissibile e consistentemente stimabile. A differenza di BFS e DFS, A\* può essere più efficiente in termini di tempo e spazio. 
