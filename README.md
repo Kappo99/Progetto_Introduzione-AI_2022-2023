@@ -1,4 +1,4 @@
-# Progetto cavalieri scacchi
+# Progetto di Introduzione all'Intelligenza Artificiale 2022/2023
 ## Problema
 Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1,…,sk a k caselle obiettivo g1,…,gk, su una scacchiera NxN, soggetta alla regola che due cavalli non possono occupare contemporaneamente sulla stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
 
