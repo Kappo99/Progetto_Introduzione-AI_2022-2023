@@ -55,7 +55,15 @@ def bfs(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 ```
 
-### Note
+### Note (DA CORREGGERE!!)
+La funzione bfs implementa la ricerca in ampiezza per risolvere il problema dello spostamento dei k cavalieri sulla scacchiera. La funzione prende in input i seguenti parametri:
+- `start`: una tupla contenente le posizioni di partenza dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck)).
+- `goal`: una tupla contenente le posizioni di arrivo dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck)).
+- `k`: il numero di cavalieri da spostare.
+- `N`: la dimensione della scacchiera.
+La funzione restituisce il percorso ottimo per spostare i cavalieri dalla posizione di partenza alla posizione di arrivo, rappresentato come una lista di mosse. Ogni mossa è una tupla nella forma (i, (r, c)) dove i indica l'indice del cavallo che viene spostato e (r, c) indica la nuova posizione del cavallo.
+
+
 L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti con un numero di mosse da 1 a max_moves. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
 
 ## Ricerca in profondità (DFS)
@@ -84,6 +92,9 @@ Se nessun percorso valido viene trovato, la funzione restituisce None.
 
 ### Codice
 ```
+def heuristic(start, goal):
+    return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(len(start)))
+
 def a_star(start, goal, k, N):
     open_set = [(heuristic(start, goal), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
     closed_set = set() # insieme degli stati già visitati
@@ -106,7 +117,7 @@ def a_star(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 ```
 
-### Note
+### Note (DA CORREGGERE!!)
 La funzione `a_star` riceve in input la posizione di partenza start, la posizione di arrivo goal, il numero massimo di mosse che ogni cavallo può effettuare max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La funzione utilizza una coda di priorità per tenere traccia degli stati che devono essere esplorati, e la funzione heuristic per calcolare un'euristica ammissibile.
 
 La funzione heuristic calcola la distanza di ogni cavallo dalla sua posizione obiettivo, e restituisce la somma delle distanze massime di ogni cavallo. Questa è un'euristica ammissibile, in quanto la distanza effettiva per raggiungere l'obiettivo non può essere inferiore alla somma delle distanze di ogni cavallo.
@@ -114,3 +125,29 @@ La funzione heuristic calcola la distanza di ogni cavallo dalla sua posizione ob
 Il ciclo principale dell'algoritmo estrae lo stato con il costo f minore dalla coda di priorità, lo esamina e genera tutti i successori. Per ogni successore, l'algoritmo calcola il costo f e lo inserisce nella coda di priorità. Se uno stato è già presente nella coda di priorità con un costo inferiore, non viene inserito di nuovo.
 
 Infine, se la coda di priorità si svuota senza trovare una soluzione, la funzione restituisce None.
+
+## Funzioni comuni
+Tutti gli algoritmi scritti sopra utilizzano la funzione `generate_moves`, la quale prende in input due argomenti:
+- `pos`: una tupla rappresentante la posizione attuale del cavallo nella forma (row, col).
+- `N`: la dimensione della scacchiera.
+La funzione restituisce un insieme di tutte le caselle raggiungibili dal cavallo in una scacchiera di dimensione N partendo dalla posizione `pos`.
+
+La funzione itera su tutte le possibili combinazioni di movimenti del cavallo utilizzando due cicli for annidati. Per ogni combinazione di movimenti, viene calcolata la posizione della casella di destinazione e, se questa si trova all'interno della scacchiera, la casella di destinazione viene aggiunta all'insieme moves.
+
+Infine, la funzione restituisce l'insieme moves contenente tutte le possibili caselle di destinazione raggiungibili dal cavallo.
+
+### Codice
+```
+def generate_moves(pos, N):
+    row, col = pos
+    moves = set()
+    for dr in [-2, -1, 1, 2]:
+        for dc in [-2, -1, 1, 2]:
+            if abs(dr) + abs(dc) != 3:
+                continue
+            r, c = row + dr, col + dc
+            if 0 <= r < N and 0 <= c < N:
+                moves.add((r, c))
+    return moves
+```
+
