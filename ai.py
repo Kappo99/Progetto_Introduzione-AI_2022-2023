@@ -39,25 +39,25 @@ def heuristic(start, goal):
     return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(len(start)))
 
 def a_star(start, goal, k, N):
-    open_set = [(heuristic(start, goal), start, [])]
-    closed_set = set()
-    while open_set:
-        f, state, path = heapq.heappop(open_set)
-        if state in closed_set:
+    open_set = [(heuristic(start, goal), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
+    closed_set = set() # insieme degli stati già visitati
+    while open_set: # finché la coda non è vuota
+        f, state, path = heapq.heappop(open_set) # preleva lo stato e il percorso dalla testa della coda
+        if state in closed_set: # se lo stato è già stato visitato, passa allo stato successivo
             continue
-        if state == goal:
+        if state == goal: # se lo stato è l'obiettivo, restituisce il percorso
             return path
-        closed_set.add(state)
-        for i in range(k):
-            moves = generate_moves(state[i], N)
-            for move in moves:
-                if move in state:
+        closed_set.add(state) # marca lo stato come visitato
+        for i in range(k): # per ogni cavallo
+            moves = generate_moves(state[i], N) # genera tutti i movimenti validi
+            for move in moves: # per ogni movimento
+                if move in state: # se il movimento è già stato effettuato
                     continue
-                new_state = tuple(state[:i] + (move,) + state[i+1:])
-                new_path = path + [(i, move)]
-                new_f = len(new_path) + heuristic(new_state, goal)
-                heapq.heappush(open_set, (new_f, new_state, new_path))
-    return None
+                new_state = tuple(state[:i] + (move,) + state[i+1:]) # genera lo stato successivo
+                new_path = path + [(i, move)] # genera il percorso successivo
+                new_f = len(new_path) + heuristic(new_state, goal) # calcola la funzione di valutazione
+                heapq.heappush(open_set, (new_f, new_state, new_path)) # inserisce lo stato e il percorso nella coda
+    return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 
 def test_from_file(test_number):
     with open("config/"+str(test_number)+".json", "r") as f:
