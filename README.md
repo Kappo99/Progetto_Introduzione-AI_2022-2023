@@ -151,3 +151,6 @@ def generate_moves(pos, N):
     return moves
 ```
 
+## Spiegazione utilizzo
+
+
