@@ -82,7 +82,7 @@ Se nessun percorso valido viene trovato, la funzione restituisce None.
 ## Algoritmo A\*
 **A\*** è un algoritmo di ricerca informata che combina l'approccio di BFS con una funzione euristica per migliorare l'efficienza di BFS. La funzione euristica calcola un'euristica del costo dallo stato corrente al goal e usa questa informazione per guidare l'algoritmo nella direzione giusta. A\* garantisce di trovare la soluzione ottimale se la funzione euristica è ammissibile e consistentemente stimabile. A differenza di BFS e DFS, A\* può essere più efficiente in termini di tempo e spazio.
 
-### Codice (DA COMMENTARE!!)
+### Codice
 ```
 def a_star(start, goal, k, N):
     open_set = [(heuristic(start, goal), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
@@ -107,7 +107,7 @@ def a_star(start, goal, k, N):
 ```
 
 ### Note
-La funzione a_star riceve in input la posizione di partenza start, la posizione di arrivo goal, il numero massimo di mosse che ogni cavallo può effettuare max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La funzione utilizza una coda di priorità per tenere traccia degli stati che devono essere esplorati, e la funzione heuristic per calcolare un'euristica ammissibile.
+La funzione `a_star` riceve in input la posizione di partenza start, la posizione di arrivo goal, il numero massimo di mosse che ogni cavallo può effettuare max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La funzione utilizza una coda di priorità per tenere traccia degli stati che devono essere esplorati, e la funzione heuristic per calcolare un'euristica ammissibile.
 
 La funzione heuristic calcola la distanza di ogni cavallo dalla sua posizione obiettivo, e restituisce la somma delle distanze massime di ogni cavallo. Questa è un'euristica ammissibile, in quanto la distanza effettiva per raggiungere l'obiettivo non può essere inferiore alla somma delle distanze di ogni cavallo.
 
