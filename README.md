@@ -29,12 +29,10 @@ Per risolvere il problema, possono essere utilizzati diversi algoritmi di ricerc
 - ricerca in profondità (DFS)
 - algoritmo A\* con le euristiche sopra menzionate
 
-## Spiegazione algoritmi
-
-### Ricerca in ampiezza (BFS)
+## Ricerca in ampiezza (BFS)
 **BFS (Breadth-First Search)** è un algoritmo di ricerca che esplora tutti i nodi adiacenti di un nodo prima di muoversi in profondità. In altre parole, esplora i nodi livello per livello e garantisce che la soluzione ottimale sia trovata solo quando la soluzione corrente ha il minor numero di mosse possibili. Tuttavia, BFS può richiedere molta memoria per tenere traccia dei nodi visitati in quanto deve mantenere una coda dei nodi visitati.
 
-#### Codice
+### Codice
 ```
 def bfs(start, goal, k, N):
     queue = Queue()
@@ -57,18 +55,18 @@ def bfs(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 ```
 
-#### Note
+### Note
 L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti con un numero di mosse da 1 a max_moves. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
 
-### Ricerca in profondità (DFS)
+## Ricerca in profondità (DFS)
 **DFS (Depth-First Search)** è un algoritmo di ricerca che esplora un ramo del grafo il più possibile prima di tornare indietro e esplorare il prossimo ramo. In altre parole, esplora il grafo in profondità prima di tornare indietro. A differenza di BFS, DFS non garantisce di trovare la soluzione ottimale, ma può essere più efficiente in termini di memoria.
 
-#### Codice
+### Codice
 ```
 def dfs(start, goal, k, N):
 ```
 
-#### Note (DA CORREGGERE!!)
+### Note (DA CORREGGERE!!)
 La funzione dfs è implementata in modo ricorsivo. Prende in input lo stato iniziale state, lo stato finale goal, il numero massimo di mosse per turno max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La variabile path tiene traccia del percorso dalla radice dello spazio degli stati fino allo stato corrente.
 
 Se lo stato corrente state coincide con lo stato finale goal, la funzione restituisce il percorso trovato fino a questo punto.
@@ -81,10 +79,10 @@ La funzione esplora quindi il nuovo stato new_state ricorsivamente con un numero
 
 Se nessun percorso valido viene trovato, la funzione restituisce None.
 
-### Algoritmo A\*
+## Algoritmo A\*
 **A\*** è un algoritmo di ricerca informata che combina l'approccio di BFS con una funzione euristica per migliorare l'efficienza di BFS. La funzione euristica calcola un'euristica del costo dallo stato corrente al goal e usa questa informazione per guidare l'algoritmo nella direzione giusta. A\* garantisce di trovare la soluzione ottimale se la funzione euristica è ammissibile e consistentemente stimabile. A differenza di BFS e DFS, A\* può essere più efficiente in termini di tempo e spazio.
 
-#### Codice (DA COMMENTARE!!)
+### Codice (DA COMMENTARE!!)
 ```
 def a_star(start, goal, k, N):
     open_set = [(heuristic(start, goal), start, [])]
@@ -108,7 +106,7 @@ def a_star(start, goal, k, N):
     return None
 ```
 
-#### Note
+### Note
 La funzione a_star riceve in input la posizione di partenza start, la posizione di arrivo goal, il numero massimo di mosse che ogni cavallo può effettuare max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La funzione utilizza una coda di priorità per tenere traccia degli stati che devono essere esplorati, e la funzione heuristic per calcolare un'euristica ammissibile.
 
 La funzione heuristic calcola la distanza di ogni cavallo dalla sua posizione obiettivo, e restituisce la somma delle distanze massime di ogni cavallo. Questa è un'euristica ammissibile, in quanto la distanza effettiva per raggiungere l'obiettivo non può essere inferiore alla somma delle distanze di ogni cavallo.
