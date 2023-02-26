@@ -16,15 +16,11 @@ def generate_moves(pos, N):
     return moves
 
 def bfs(start, goal, k, N):
-    # count = 0
     queue = Queue()
     queue.put((start, [])) # inserisce lo stato iniziale e un percorso vuoto nella coda
     visited = set() # insieme degli stati già visitati
     while not queue.empty(): # finché la coda non è vuota
         state, path = queue.get() # preleva lo stato e il percorso dalla testa della coda
-        # count += 1
-        # if count % 100000 == 0:
-        #     print(count)
         if state == goal: # se lo stato è l'obiettivo, restituisce il percorso
             return path
         if state in visited: # se lo stato è già stato visitato, passa allo stato successivo
