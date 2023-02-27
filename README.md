@@ -3,7 +3,7 @@ Università degli Studi di Milano Bicocca\
 Studente: Cappone Andrea\
 Matricola: 869012
 ## Problema
-Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1, …, sk a k caselle obiettivo g1, …, gk, su una scacchiera NxN, soggetta alla regola che due cavalli non possono occupare contemporaneamente sulla stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
+Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1, …, sk a k caselle obiettivo g1, …, gk, su una scacchiera N x N, soggetta alla regola che due cavalli non possono occupare contemporaneamente la stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
 
 ## Domande di teoria
 ### Calcolare la dimensione dello spazio degli stati in funzione di N e m
@@ -142,16 +142,13 @@ Infine, la funzione restituisce l'insieme moves contenente tutte le possibili ca
 ### Codice
 ```
 def generate_moves(pos, N):
-    row, col = pos
-    moves = set()
-    for dr in [-2, -1, 1, 2]:
-        for dc in [-2, -1, 1, 2]:
-            if abs(dr) + abs(dc) != 3:
-                continue
-            r, c = row + dr, col + dc
-            if 0 <= r < N and 0 <= c < N:
-                moves.add((r, c))
-    return moves
+    row, col = pos # estrae la riga e la colonna della posizione
+    moves = set() # insieme dei possibili movimenti
+    for dr, dc in [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1)]: # per ogni possibile mossa
+        r, c = row + dr, col + dc # calcola la nuova posizione
+        if 0 <= r < N and 0 <= c < N: # se la nuova posizione è valida
+            moves.add((r, c)) # aggiunge la nuova posizione all'insieme dei movimenti
+    return moves # restituisce l'insieme dei movimenti
 ```
 
 ## Spiegazione utilizzo

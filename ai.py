@@ -1,66 +1,8 @@
 from queue import Queue
+import algorithm
 import heapq
 import json
 import time
-
-def generate_moves(pos, N):
-    row, col = pos
-    moves = set()
-    for dr in [-2, -1, 1, 2]:
-        for dc in [-2, -1, 1, 2]:
-            if abs(dr) + abs(dc) != 3:
-                continue
-            r, c = row + dr, col + dc
-            if 0 <= r < N and 0 <= c < N:
-                moves.add((r, c))
-    return moves
-
-def bfs(start, goal, k, N):
-    queue = Queue()
-    queue.put((start, [])) # inserisce lo stato iniziale e un percorso vuoto nella coda
-    visited = set() # insieme degli stati già visitati
-    while not queue.empty(): # finché la coda non è vuota
-        state, path = queue.get() # preleva lo stato e il percorso dalla testa della coda
-        if state == goal: # se lo stato è l'obiettivo, restituisce il percorso
-            return path
-        if state in visited: # se lo stato è già stato visitato, passa allo stato successivo
-            continue
-        visited.add(state) # marca lo stato come visitato
-        for i in range(k): # per ogni cavallo
-            moves = generate_moves(state[i], N) # genera tutti i movimenti validi
-            for move in moves: # per ogni movimento valido
-                if move not in state and move not in visited: # se la nuova posizione non è occupata e non è già stata visitata
-                    new_state = tuple(state[:i] + (move,) + state[i+1:]) # crea il nuovo stato con il cavallo che si è mosso
-                    new_path = path + [(i, move)] # aggiunge la mossa al percorso
-                    queue.put((new_state, new_path)) # inserisce il nuovo stato e il percorso nella coda
-    return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
-
-def chebyshev_distance(start, goal):
-    return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(len(start)))
-
-def manhattan_distance(start, goal):
-    return abs(start[0] - goal[0]) + abs(start[1] - goal[1])
-
-def a_star(start, goal, k, N):
-    open_set = [(chebyshev_distance(start, goal), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
-    closed_set = set() # insieme degli stati già visitati
-    while open_set: # finché la coda non è vuota
-        f, state, path = heapq.heappop(open_set) # preleva lo stato e il percorso dalla testa della coda
-        if state in closed_set: # se lo stato è già stato visitato, passa allo stato successivo
-            continue
-        if state == goal: # se lo stato è l'obiettivo, restituisce il percorso
-            return path
-        closed_set.add(state) # marca lo stato come visitato
-        for i in range(k): # per ogni cavallo
-            moves = generate_moves(state[i], N) # genera tutti i movimenti validi
-            for move in moves: # per ogni movimento
-                if move in state: # se il movimento è già stato effettuato
-                    continue
-                new_state = tuple(state[:i] + (move,) + state[i+1:]) # genera lo stato successivo
-                new_path = path + [(i, move)] # genera il percorso successivo
-                new_f = len(new_path) + chebyshev_distance(new_state, goal) # calcola la funzione di valutazione
-                heapq.heappush(open_set, (new_f, new_state, new_path)) # inserisce lo stato e il percorso nella coda
-    return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 
 def test_from_file(test_number):
     with open("config/"+str(test_number)+".json", "r") as f:
@@ -76,19 +18,18 @@ def test_from_file(test_number):
     print("K: ", k)
     print("N: ", N)
 
-
     bfs_start_time = time.time() # memorizza il tempo di inizio
-    bfs_path = bfs(start, goal, k, N) # esegue l'algoritmo
+    bfs_path = algorithm.bfs(start, goal, k, N) # esegue l'algoritmo
     bfs_end_time = time.time() # memorizza il tempo di fine
     bfs_duration = bfs_end_time - bfs_start_time # calcola la durata in secondi
 
     # dfs_start_time = time.time() # memorizza il tempo di inizio
-    # dfs_path = dfs(start, goal, k, N) # esegue l'algoritmo
+    # dfs_path = algorithm.dfs(start, goal, k, N) # esegue l'algoritmo
     # dfs_end_time = time.time() # memorizza il tempo di fine
     # dfs_duration = dfs_end_time - dfs_start_time # calcola la durata in secondi
 
     a_star_start_time = time.time() # memorizza il tempo di inizio
-    a_star_path = a_star(start, goal, k, N) # esegue l'algoritmo
+    a_star_path = algorithm.a_star(start, goal, k, N) # esegue l'algoritmo
     a_star_end_time = time.time() # memorizza il tempo di fine
     a_star_duration = a_star_end_time - a_star_start_time # calcola la durata in secondi
     
