@@ -33,6 +33,25 @@ def bfs(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 
 
+def dfs(start, goal, k, N, visited):
+    if all(pos == target for pos, target in zip(start, goal)): # se tutte le posizioni obiettivo sono state raggiunte, restituisci le mosse effettuate
+        return [start]
+    min_moves = None # lista delle mosse effettuate per raggiungere la soluzione ottimale
+    for i in range(k): # per ogni cavallo
+        moves = generate_moves(start[i], N) # genera tutti i movimenti validi
+        for move in moves: # per ogni mossa valida
+            if move not in visited: # se la nuova posizione non è già stata visitata
+                visited.add(move) # aggiungi la nuova posizione alla lista delle posizioni visitate
+                new_positions = start[:i] + (move,) + start[i+1:] # crea il nuovo stato con il cavallo che si è mosso
+                moves = dfs(k, new_positions, goal, N, visited) # calcola ricorsivamente il numero di mosse per raggiungere la soluzione ottimale
+                visited.remove(move) # rimuovi la nuova posizione dalla lista delle posizioni visitate
+                if moves is not None: # se la soluzione è valida
+                    moves.append(new_positions) # aggiungi la mossa corrente alla lista delle mosse effettuate
+                    if min_moves is None or len(moves) < len(min_moves): # se questa è la soluzione più breve trovata finora
+                        min_moves = moves # aggiorna la lista delle mosse effettuate
+    return min_moves # restituisci la lista delle mosse effettuate per raggiungere la soluzione ottimale
+
+
 def chebyshev_distance(start, goal):
     return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(len(start)))
 

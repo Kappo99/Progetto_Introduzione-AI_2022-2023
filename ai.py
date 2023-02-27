@@ -18,10 +18,10 @@ def test_from_file(test_number):
     print("K: ", k)
     print("N: ", N)
 
-    bfs_start_time = time.time() # memorizza il tempo di inizio
-    bfs_path = algorithm.bfs(start, goal, k, N) # esegue l'algoritmo
-    bfs_end_time = time.time() # memorizza il tempo di fine
-    bfs_duration = bfs_end_time - bfs_start_time # calcola la durata in secondi
+    # bfs_start_time = time.time() # memorizza il tempo di inizio
+    # bfs_path = algorithm.bfs(start, goal, k, N) # esegue l'algoritmo
+    # bfs_end_time = time.time() # memorizza il tempo di fine
+    # bfs_duration = bfs_end_time - bfs_start_time # calcola la durata in secondi
 
     # dfs_start_time = time.time() # memorizza il tempo di inizio
     # dfs_path = algorithm.dfs(start, goal, k, N) # esegue l'algoritmo
@@ -34,7 +34,7 @@ def test_from_file(test_number):
     a_star_duration = a_star_end_time - a_star_start_time # calcola la durata in secondi
     
     with open("output/"+str(test_number)+".txt", 'w') as f:
-        f.write("BFS\n" + "Durata: " + str(bfs_duration) + " secondi\n" + str(bfs_path) + "\n\n")
+        # f.write("BFS\n" + "Durata: " + str(bfs_duration) + " secondi\n" + str(bfs_path) + "\n\n")
         # f.write("DFS\n" + "Durata: " + str(dfs_duration) + " secondi\n" + str(dfs_path) + "\n\n")
         f.write("A*\n" + "Durata: " + str(a_star_duration) + " secondi\n" + str(a_star_path) + "\n\n")
 
