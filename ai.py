@@ -50,7 +50,7 @@ def test_from_file(test_number):
     a_star_chebyshev_end_time = time.time() # memorizza il tempo di fine
     a_star_chebyshev_duration = a_star_chebyshev_end_time - a_star_chebyshev_start_time # calcola la durata in secondi
 
-    with open("output/"+str(test_number)+".txt", 'w') as f:
+    with open("output/"+str(test_number)+".txt", "w") as f:
         f.write("BFS\n" + "Durata: " + str(bfs_duration) + " secondi\n")
         pprint.pprint(path_to_list(bfs_path), width=15, stream=f)
         f.write("\n\n")
