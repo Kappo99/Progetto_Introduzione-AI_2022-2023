@@ -1,55 +1,44 @@
 from queue import Queue
 
-def generate_moves(position, max_moves, N):
-    row, col = position
-    moves = []
-    for i, j in [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1)]:
-        new_row, new_col = row + i, col + j
-        # print(max(abs(i), abs(j)), max_moves)
-        if 0 <= new_row < N and 0 <= new_col < N and max(abs(i), abs(j)) <= max_moves:
-            moves.append((new_row, new_col))
-    return moves
+def generate_moves(pos, N):
+    row, col = pos # estrae la riga e la colonna della posizione
+    moves = set() # insieme dei possibili movimenti
+    for dr, dc in [(2, 1), (1, 2), (-1, 2), (-2, 1), (-2, -1), (-1, -2), (1, -2), (2, -1)]: # per ogni possibile mossa
+        r, c = row + dr, col + dc # calcola la nuova posizione
+        if 0 <= r < N and 0 <= c < N: # se la nuova posizione è valida
+            moves.add((r, c)) # aggiunge la nuova posizione all'insieme dei movimenti
+    return moves # restituisce l'insieme dei movimenti
 
+def dfs(num_knights, positions, targets, N, visited):
+    if all(pos == target for pos, target in zip(positions, targets)):
+        # se tutte le posizioni obiettivo sono state raggiunte, restituisci le mosse effettuate
+        return [positions]
+    else:
+        # altrimenti, esplora tutte le possibili mosse dei cavalieri
+        min_moves = None
+        for i in range(num_knights):
+            for move in generate_moves(positions[i], N):
+                if move not in visited:
+                    visited.add(move)
+                    new_positions = positions[:i] + (move,) + positions[i+1:]
+                    # calcola ricorsivamente le mosse effettuate per raggiungere la soluzione ottimale
+                    moves = dfs(num_knights, new_positions, targets, N, visited)
+                    visited.remove(move)
+                    if moves is not None:
+                        # se la soluzione è valida, aggiungi la mossa corrente alla lista delle mosse effettuate
+                        moves.append(new_positions)
+                        if min_moves is None or len(moves) < len(min_moves):
+                            # se questa è la soluzione più breve trovata finora, aggiorna la lista delle mosse effettuate
+                            min_moves = moves
+        return min_moves
 
-def dfs(state, goal, max_moves, k, N, path=[]):
-    # print("Max moves: ", max_moves)
-    if state == goal:
-        return path
-    if max_moves == 0:
-        return None
-    for i in range(k):
-        for j in range(2, max_moves+1):
-            moves = generate_moves(state[i], j, N)
-            # print("MOVES: ", moves)
-            for move in moves:
-                if move not in state:
-                    new_state = tuple(state[:i] + (move,) + state[i+1:])
-                    new_path = path + [(i, move)]
-                    result = dfs(new_state, goal, max_moves-1, k, N, new_path)
-                    if result is not None:
-                        return result
-    return None
+positions = ((0, 0), (1, 0)) # posizioni iniziali dei cavalieri
+targets = ((2, 2), (2, 1)) # posizioni obiettivo dei cavalieri
+N = 3 # dimensione della scacchiera
+# positions = ((0, 0), (1, 0), (2, 0)) # posizioni iniziali dei cavalieri
+# targets = ((2, 2), (3, 2), (4, 2)) # posizioni obiettivo dei cavalieri
+# N = 5 # dimensione della scacchiera
+visited = set() # insieme delle posizioni visitate
+moves = dfs(2, positions, targets, N, visited) # calcola le mosse effettuate per raggiungere la soluzione ottimale
+print(moves) # stampa le mosse
 
-test_number = int(input("Test number: ")) - 1
-start = [((0, 0), (1, 1)),
-         ((0, 0), (1, 1)),
-         ((0, 0), (0, 1), (1, 1)),
-         ((0, 0), (0, 1), (1, 1), (1, 2)),
-         ((0, 0), (0, 1), (1, 1), (1, 2)),
-         ((0, 1), (2, 1), (3, 6), (4, 1), (5, 2), (6, 1), (7, 3)),
-         ((0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6), (7, 7), (8, 8), (9, 9))]
-goal  = [((4, 2), (3, 2)),
-         ((1, 1), (0, 0)),
-         ((4, 4), (4, 3), (3, 4)),
-         ((4, 4), (4, 3), (3, 4), (3, 3)),
-         ((4, 4), (4, 3), (3, 4), (3, 3)),
-         ((2, 3), (4, 1), (1, 5), (6, 7), (1, 2), (5, 4), (0, 0)),
-         ((9, 9), (8, 8), (7, 7), (6, 6), (5, 5), (4, 4), (3, 3), (2, 2), (1, 1), (0, 0))]
-k = len(start[test_number])
-N = [5, 4, 5, 5, 7, 8, 10]
-print("Start: ", start[test_number])
-print("Goal: ", goal[test_number])
-print("K: ", k)
-print("N: ", N[test_number])
-path = dfs(start[test_number], goal[test_number], 8, k, N[test_number])
-print("Path: ", path)

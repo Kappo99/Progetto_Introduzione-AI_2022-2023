@@ -43,7 +43,7 @@ def dfs(start, goal, k, N, visited):
             if move not in visited: # se la nuova posizione non è già stata visitata
                 visited.add(move) # aggiungi la nuova posizione alla lista delle posizioni visitate
                 new_positions = start[:i] + (move,) + start[i+1:] # crea il nuovo stato con il cavallo che si è mosso
-                moves = dfs(k, new_positions, goal, N, visited) # calcola ricorsivamente il numero di mosse per raggiungere la soluzione ottimale
+                moves = dfs(start, goal, k, N, visited) # calcola ricorsivamente il numero di mosse per raggiungere la soluzione ottimale
                 visited.remove(move) # rimuovi la nuova posizione dalla lista delle posizioni visitate
                 if moves is not None: # se la soluzione è valida
                     moves.append(new_positions) # aggiungi la mossa corrente alla lista delle mosse effettuate
