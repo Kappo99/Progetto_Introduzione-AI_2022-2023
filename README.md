@@ -2,7 +2,7 @@
 Università degli Studi di Milano Bicocca\
 Studente: Cappone Andrea\
 Matricola: 869012\
-Linguaggio: Python 3.11.2\
+Linguaggio: Python 3.11.2
 
 ## Problema
 Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1, …, sk a k caselle obiettivo g1, …, gk, su una scacchiera N x N, soggetta alla regola che due cavalli non possono occupare contemporaneamente la stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
