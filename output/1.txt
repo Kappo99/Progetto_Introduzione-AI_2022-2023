@@ -7,7 +7,16 @@ Durata: 0.0 secondi
    (2, 2)])]
 
 
-A*
+A* Chebyshev
+Durata: 0.0 secondi
+[(0,
+  [(1, 2),
+   (2, 0),
+   (0, 1),
+   (2, 2)])]
+
+
+A* Manhattan
 Durata: 0.0 secondi
 [(0,
   [(1, 2),

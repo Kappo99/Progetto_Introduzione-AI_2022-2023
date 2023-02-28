@@ -2,6 +2,7 @@
 Università degli Studi di Milano Bicocca\
 Studente: Cappone Andrea\
 Matricola: 869012
+Linguaggio: Python 3.11.2
 ## Problema
 Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1, …, sk a k caselle obiettivo g1, …, gk, su una scacchiera N x N, soggetta alla regola che due cavalli non possono occupare contemporaneamente la stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
 
@@ -23,8 +24,6 @@ Le seguenti euristiche ammissibili possono essere utilizzate per risolvere il pr
 - **Distanza di Manhattan**: questa euristica stima la distanza tra la posizione attuale di ogni cavallo e la sua posizione obiettivo come la somma delle distanze orizzontali e verticali tra le due posizioni.
 - **Distanza di Chebyshev**: questa euristica stima la distanza tra la posizione attuale di ogni cavallo e la sua posizione obiettivo come la massima delle distanze orizzontali e verticali tra le due posizioni.
 - **Euristica di clustering**: questa euristica raggruppa i cavalieri in cluster in modo che ogni cluster abbia almeno un cavallo che è già nella posizione obiettivo. Quindi, l'euristica stima il numero di cluster che devono ancora essere spostati.
-
-Per il problema dei cavalli sulla scacchiera, una buona euristica potrebbe essere la distanza di Chebyshev tra la posizione corrente del cavallo e la posizione obiettivo, ovvero la distanza minima tra due punti sulla scacchiera muovendosi solo in orizzontale, verticale o diagonale. Questa euristica è ammissibile perché la distanza di Chebyshev è sempre uguale o inferiore alla distanza effettiva necessaria per raggiungere la soluzione.
 
 ### Implementare un programma che risolva questo problema usando almeno tre diversi algoritmi di ricerca
 Per risolvere il problema, possono essere utilizzati diversi algoritmi di ricerca, tra cui:
@@ -58,16 +57,15 @@ def bfs(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 ```
 
-### Note (DA CORREGGERE!!)
-La funzione bfs implementa la ricerca in ampiezza per risolvere il problema dello spostamento dei k cavalieri sulla scacchiera. La funzione prende in input i seguenti parametri:
+### Note
+La funzione BFS implementa la ricerca in ampiezza per risolvere il problema dello spostamento dei k cavalieri sulla scacchiera. La funzione prende in input i seguenti parametri:
 - `start`: una tupla contenente le posizioni di partenza dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck)).
 - `goal`: una tupla contenente le posizioni di arrivo dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck)).
 - `k`: il numero di cavalieri da spostare.
 - `N`: la dimensione della scacchiera.
-La funzione restituisce il percorso ottimo per spostare i cavalieri dalla posizione di partenza alla posizione di arrivo, rappresentato come una lista di mosse. Ogni mossa è una tupla nella forma (i, (r, c)) dove i indica l'indice del cavallo che viene spostato e (r, c) indica la nuova posizione del cavallo.
+La funzione restituisce il percorso ottimo per spostare i cavalieri dalla posizione di partenza alla posizione di arrivo, rappresentato come una lista di mosse. Ogni mossa è una tupla nella forma (i, [(r1, c1), (r2, c2), ..., (rz, cz)]) dove i indica l'indice del cavallo che viene spostato e (r, c) indica la nuova posizione del cavallo.
 
-
-L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti con un numero di mosse da 1 a max_moves. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
+L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
 
 ## Ricerca in profondità (DFS)
 **DFS (Depth-First Search)** è un algoritmo di ricerca che esplora un ramo del grafo il più possibile prima di tornare indietro e esplorare il prossimo ramo. In altre parole, esplora il grafo in profondità prima di tornare indietro. A differenza di BFS, DFS non garantisce di trovare la soluzione ottimale, ma può essere più efficiente in termini di memoria.
@@ -77,28 +75,21 @@ L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. I
 def dfs(start, goal, k, N):
 ```
 
-### Note (DA CORREGGERE!!)
-La funzione dfs è implementata in modo ricorsivo. Prende in input lo stato iniziale state, lo stato finale goal, il numero massimo di mosse per turno max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La variabile path tiene traccia del percorso dalla radice dello spazio degli stati fino allo stato corrente.
-
-Se lo stato corrente state coincide con lo stato finale goal, la funzione restituisce il percorso trovato fino a questo punto.
-
-Se il numero massimo di mosse per turno max_moves è 0, la funzione restituisce None, indicando che non è stato trovato un percorso valido.
-
-Altrimenti, la funzione esplora ricorsivamente i successori dello stato corrente. Per ogni cavaliere i e per ogni numero di mosse j compreso tra 1 e max_moves, genera tutte le mosse possibili con la funzione generate_moves. Se la mossa move non è già presente nello stato corrente, la funzione genera un nuovo stato new_state aggiornando la posizione del cavaliere i con la mossa move. Il nuovo percorso new_path viene costruito concatenando il percorso corrente con la tupla (i, move).
-
-La funzione esplora quindi il nuovo stato new_state ricorsivamente con un numero di mosse ridotto di 1 rispetto allo stato corrente (max_moves-1). Se la chiamata ricorsiva restituisce un percorso valido result, la funzione restituisce questo percorso.
-
-Se nessun percorso valido viene trovato, la funzione restituisce None.
+### Note
+Ho avuto diversi problemi di implementazione. Sul file dfs.py si trova una versione non completamente funzionante. Nello specifico ritorna solo percorsi parziali, e spesso il valore di ritorno è "None", come se non esistesse una soluzione al problema.
 
 ## Algoritmo A\*
 **A\*** è un algoritmo di ricerca informata che combina l'approccio di BFS con una funzione euristica per migliorare l'efficienza di BFS. La funzione euristica calcola un'euristica del costo dallo stato corrente al goal e usa questa informazione per guidare l'algoritmo nella direzione giusta. A\* garantisce di trovare la soluzione ottimale se la funzione euristica è ammissibile e consistentemente stimabile. A differenza di BFS e DFS, A\* può essere più efficiente in termini di tempo e spazio.
 
 ### Codice
 ```
-def heuristic(start, goal):
+def manhattan_distance(start, goal):
+    return abs(start[0] - goal[0]) + abs(start[1] - goal[1])
+
+def chebyshev_distance(start, goal):
     return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(len(start)))
 
-def a_star(start, goal, k, N):
+def a_star(start, goal, k, N, heuristic=manhattan_distance):
     open_set = [(heuristic(start, goal), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
     closed_set = set() # insieme degli stati già visitati
     while open_set: # finché la coda non è vuota
@@ -133,11 +124,10 @@ Infine, se la coda di priorità si svuota senza trovare una soluzione, la funzio
 Tutti gli algoritmi scritti sopra utilizzano la funzione `generate_moves`, la quale prende in input due argomenti:
 - `pos`: una tupla rappresentante la posizione attuale del cavallo nella forma (row, col).
 - `N`: la dimensione della scacchiera.
-La funzione restituisce un insieme di tutte le caselle raggiungibili dal cavallo in una scacchiera di dimensione N partendo dalla posizione `pos`.
 
-La funzione itera su tutte le possibili combinazioni di movimenti del cavallo utilizzando due cicli for annidati. Per ogni combinazione di movimenti, viene calcolata la posizione della casella di destinazione e, se questa si trova all'interno della scacchiera, la casella di destinazione viene aggiunta all'insieme moves.
+La funzione itera su tutti i possibili movimenti del cavallo. Per ogni movimento, viene calcolata la posizione della casella di destinazione e, se questa si trova all'interno della scacchiera, la casella di destinazione viene aggiunta all'insieme `moves`.
 
-Infine, la funzione restituisce l'insieme moves contenente tutte le possibili caselle di destinazione raggiungibili dal cavallo.
+La funzione restituisce un insieme di tutte le caselle raggiungibili dal cavallo in una scacchiera N x N partendo dalla posizione `pos`.
 
 ### Codice
 ```
@@ -152,5 +142,17 @@ def generate_moves(pos, N):
 ```
 
 ## Spiegazione utilizzo
-
+Il progetto si compone di più parti:
+### File di input
+Diversi esempi in formato json che permettono di caricare velocemente in memoria tutti i dati utili per eseguire gli algoritmi sopra elencati
+### File di output
+Per ogni file di input corrisponde un file di output (in formato txt) che contiene le informazioni utili sull'esecuzione di tutti gli algoritmi. In particolare contiene il nome dell'algoritmo (nel caso di A* ci sono tutte le varianti con diverse euristiche), il tempo di esecuzione, e l'output fornito
+### File algorithm.py
+File che contiene il codice per poter eseguire correttamente tutti gli algoritmi
+### File ai.py
+File di interfaccia che permette di caricare i dati in memoria (inserendo il file che vogliamo testare), richiama l'esecuzione degli algoritmi sul file algorithm.py e scrive tutto sul file di output corretto
+## Note
+Possiamo notare che diversi algoritmi forniscono diversi output.\
+In particolare, i tempi di esecuzione per BFS incrementano quasi esponenzialmente all'aumentare della dimensione del problema (sia per numero di cavalli presenti sia per dimensione della scacchiera), mentre A* sfruttando le euristiche ha una durata molto più breve (anche se aumentando la dimensione i tempi si allungano).\
+Inoltre, possiamo notare che i percorsi generati sono diversi, ma tutti arrivano alla soluzione con lo stesso numero di mosse. Questo è dovuto all'ordine di esplorazione di tutte le possibili mosse di ogni cavallo per ogni step.
 
