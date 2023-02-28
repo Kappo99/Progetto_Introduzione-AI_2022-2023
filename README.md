@@ -1,12 +1,12 @@
 # Progetto di Introduzione all'Intelligenza Artificiale 2022/2023
-Università degli Studi di Milano Bicocca\
-Studente: Cappone Andrea\
-Matricola: 869012\
-Linguaggio: Python 3.11.2
-
+Università degli Studi di Milano Bicocca<br/>
+Studente: Cappone Andrea<br/>
+Matricola: 869012<br/>
+Linguaggio: Python 3.11.2<br/>
+<br/>
 ## Problema
 Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k caselle di partenza s1, …, sk a k caselle obiettivo g1, …, gk, su una scacchiera N x N, soggetta alla regola che due cavalli non possono occupare contemporaneamente la stessa casa. Ogni azione permette di muovere fino a m cavalieri contemporaneamente. L'obiettivo è completare la manovra nel minor numero di azioni.
-
+<br/>
 ## Domande di teoria
 ### Calcolare la dimensione dello spazio degli stati in funzione di N e m
 Il problema del trasferimento di k cavalieri da k posizioni di partenza a k posizioni obiettivo su una scacchiera N x N può essere formulato come un problema di ricerca nello spazio degli stati. La dimensione dello spazio degli stati dipende dal numero di possibili posizioni di partenza dei cavalieri e dal numero di possibili azioni per ogni stato. In particolare, ci sono (N^2 choose k) possibili posizioni di partenza per k cavalieri su una scacchiera NxN e ogni stato può generare fino a m^k nuovi stati.\
@@ -31,7 +31,7 @@ Per risolvere il problema, possono essere utilizzati diversi algoritmi di ricerc
 - ricerca in ampiezza (BFS)
 - ricerca in profondità (DFS)
 - algoritmo A\* con le euristiche sopra menzionate
-
+<br/><br/>
 ## Ricerca in ampiezza (BFS)
 **BFS (Breadth-First Search)** è un algoritmo di ricerca che esplora tutti i nodi adiacenti di un nodo prima di muoversi in profondità. In altre parole, esplora i nodi livello per livello e garantisce che la soluzione ottimale sia trovata solo quando la soluzione corrente ha il minor numero di mosse possibili. Tuttavia, BFS può richiedere molta memoria per tenere traccia dei nodi visitati in quanto deve mantenere una coda dei nodi visitati.
 
