@@ -10,13 +10,17 @@ Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k cas
 <br/><br/>
 
 ## Domande di teoria
+<br/>
+
 ### Calcolare la dimensione dello spazio degli stati in funzione di N e m
 Il problema del trasferimento di k cavalieri da k posizioni di partenza a k posizioni obiettivo su una scacchiera N x N può essere formulato come un problema di ricerca nello spazio degli stati. La dimensione dello spazio degli stati dipende dal numero di possibili posizioni di partenza dei cavalieri e dal numero di possibili azioni per ogni stato. In particolare, ci sono (N^2 choose k) possibili posizioni di partenza per k cavalieri su una scacchiera NxN e ogni stato può generare fino a m^k nuovi stati.\
 Quindi, la dimensione totale dello spazio degli stati è pari a: (N^2 choose k) * (m^k)\
 dove choose denota il coefficiente binomiale.
+<br/>
 
 ### Qual è il massimo fattore di ramificazione in questo spazio degli stati, espresso in funzione di k?
 In ogni stato, ogni cavaliere ha al massimo 8 possibili mosse. Quindi il massimo fattore di ramificazione in questo spazio degli stati è pari a 8^k.
+<br/>
 
 ### Definire delle euristiche ammissibili
 La funzione euristica è una funzione che stima il costo rimanente per arrivare alla soluzione ottimale partendo dallo stato corrente. In altre parole, l'euristica cerca di fornire una stima della distanza tra lo stato corrente e lo stato obiettivo. Questa stima viene utilizzata dall'algoritmo A\* per selezionare la prossima mossa da effettuare.
@@ -27,6 +31,7 @@ Le seguenti euristiche ammissibili possono essere utilizzate per risolvere il pr
 - **Distanza di Manhattan**: questa euristica stima la distanza tra la posizione attuale di ogni cavallo e la sua posizione obiettivo come la somma delle distanze orizzontali e verticali tra le due posizioni.
 - **Distanza di Chebyshev**: questa euristica stima la distanza tra la posizione attuale di ogni cavallo e la sua posizione obiettivo come la massima delle distanze orizzontali e verticali tra le due posizioni.
 - **Euristica di clustering**: questa euristica raggruppa i cavalieri in cluster in modo che ogni cluster abbia almeno un cavallo che è già nella posizione obiettivo. Quindi, l'euristica stima il numero di cluster che devono ancora essere spostati.
+<br/>
 
 ### Implementare un programma che risolva questo problema usando almeno tre diversi algoritmi di ricerca
 Per risolvere il problema, possono essere utilizzati diversi algoritmi di ricerca, tra cui:
@@ -70,7 +75,7 @@ La funzione BFS implementa la ricerca in ampiezza per risolvere il problema dell
 La funzione restituisce il percorso ottimo per spostare i cavalieri dalla posizione di partenza alla posizione di arrivo, rappresentato come una lista di mosse. Ogni mossa è una tupla nella forma (i, [(r1, c1), (r2, c2), ..., (rz, cz)]) dove i indica l'indice del cavallo che viene spostato e (r, c) indica la nuova posizione del cavallo.
 
 L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## Ricerca in profondità (DFS)
 **DFS (Depth-First Search)** è un algoritmo di ricerca che esplora un ramo del grafo il più possibile prima di tornare indietro e esplorare il prossimo ramo. In altre parole, esplora il grafo in profondità prima di tornare indietro. A differenza di BFS, DFS non garantisce di trovare la soluzione ottimale, ma può essere più efficiente in termini di memoria.
@@ -82,7 +87,7 @@ def dfs(start, goal, k, N):
 
 ### Note
 Ho avuto diversi problemi di implementazione. Sul file dfs.py si trova una versione non completamente funzionante. Nello specifico ritorna solo percorsi parziali, e spesso il valore di ritorno è "None", come se non esistesse una soluzione al problema.
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## Algoritmo A\*
 **A\*** è un algoritmo di ricerca informata che combina l'approccio di BFS con una funzione euristica per migliorare l'efficienza di BFS. La funzione euristica calcola un'euristica del costo dallo stato corrente al goal e usa questa informazione per guidare l'algoritmo nella direzione giusta. A\* garantisce di trovare la soluzione ottimale se la funzione euristica è ammissibile e consistentemente stimabile. A differenza di BFS e DFS, A\* può essere più efficiente in termini di tempo e spazio.
@@ -125,7 +130,7 @@ La funzione heuristic calcola la distanza di ogni cavallo dalla sua posizione ob
 Il ciclo principale dell'algoritmo estrae lo stato con il costo f minore dalla coda di priorità, lo esamina e genera tutti i successori. Per ogni successore, l'algoritmo calcola il costo f e lo inserisce nella coda di priorità. Se uno stato è già presente nella coda di priorità con un costo inferiore, non viene inserito di nuovo.
 
 Infine, se la coda di priorità si svuota senza trovare una soluzione, la funzione restituisce None.
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## Funzioni comuni
 Tutti gli algoritmi scritti sopra utilizzano la funzione `generate_moves`, la quale prende in input due argomenti:
@@ -147,7 +152,7 @@ def generate_moves(pos, N):
             moves.add((r, c)) # aggiunge la nuova posizione all'insieme dei movimenti
     return moves # restituisce l'insieme dei movimenti
 ```
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## Spiegazione utilizzo
 Il progetto si compone di più parti:
@@ -159,7 +164,7 @@ Per ogni file di input corrisponde un file di output (in formato txt) che contie
 File che contiene il codice per poter eseguire correttamente tutti gli algoritmi
 ### File ai.py
 File di interfaccia che permette di caricare i dati in memoria (inserendo il file che vogliamo testare), richiama l'esecuzione degli algoritmi sul file algorithm.py e scrive tutto sul file di output corretto
-<br/><br/><br/>
+<br/><br/><br/><br/>
 
 ## Note
 Possiamo notare che diversi algoritmi forniscono diversi output.\
