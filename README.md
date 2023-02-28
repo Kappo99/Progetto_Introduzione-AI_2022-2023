@@ -10,17 +10,16 @@ Consideriamo il problema dello spostamento di k cavalieri degli scacchi da k cas
 <br/><br/>
 
 ## Domande di teoria
-<br/>
 
 ### Calcolare la dimensione dello spazio degli stati in funzione di N e m
 Il problema del trasferimento di k cavalieri da k posizioni di partenza a k posizioni obiettivo su una scacchiera N x N può essere formulato come un problema di ricerca nello spazio degli stati. La dimensione dello spazio degli stati dipende dal numero di possibili posizioni di partenza dei cavalieri e dal numero di possibili azioni per ogni stato. In particolare, ci sono (N^2 choose k) possibili posizioni di partenza per k cavalieri su una scacchiera NxN e ogni stato può generare fino a m^k nuovi stati.\
 Quindi, la dimensione totale dello spazio degli stati è pari a: (N^2 choose k) * (m^k)\
 dove choose denota il coefficiente binomiale.
-<br/>
+<br/><br/>
 
 ### Qual è il massimo fattore di ramificazione in questo spazio degli stati, espresso in funzione di k?
 In ogni stato, ogni cavaliere ha al massimo 8 possibili mosse. Quindi il massimo fattore di ramificazione in questo spazio degli stati è pari a 8^k.
-<br/>
+<br/><br/>
 
 ### Definire delle euristiche ammissibili
 La funzione euristica è una funzione che stima il costo rimanente per arrivare alla soluzione ottimale partendo dallo stato corrente. In altre parole, l'euristica cerca di fornire una stima della distanza tra lo stato corrente e lo stato obiettivo. Questa stima viene utilizzata dall'algoritmo A\* per selezionare la prossima mossa da effettuare.
