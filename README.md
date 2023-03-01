@@ -161,7 +161,7 @@ Per ogni file di input corrisponde un file di output (in formato txt) che contie
 ### File algorithm.py
 File che contiene il codice per poter eseguire correttamente tutti gli algoritmi
 ### File ai.py
-File di interfaccia che permette di caricare i dati in memoria (inserendo il file che vogliamo testare), richiama l'esecuzione degli algoritmi sul file algorithm.py e scrive tutto sul file di output corretto
+File di interfaccia che permette di caricare i dati in memoria (inserendo il numero del file che vogliamo testare), richiama l'esecuzione degli algoritmi sul file algorithm.py e scrive tutto sul file di output corretto
 <br/><br/><br/><br/>
 
 ## Note
