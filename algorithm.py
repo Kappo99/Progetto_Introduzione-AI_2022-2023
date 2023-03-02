@@ -33,14 +33,14 @@ def bfs(start, goal, k, N):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 
 
-def manhattan_distance(start, goal):
-    return abs(start[0] - goal[0]) + abs(start[1] - goal[1])
+def manhattan_distance(start, goal, k):
+    return sum(abs(start[i][0]-goal[i][0]) + abs(start[i][1]-goal[i][1]) for i in range(k))
 
-def chebyshev_distance(start, goal):
-    return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(len(start)))
+def chebyshev_distance(start, goal, k):
+    return sum(max(abs(start[i][0]-goal[i][0]), abs(start[i][1]-goal[i][1])) for i in range(k))
 
 def a_star(start, goal, k, N, heuristic=manhattan_distance):
-    open_set = [(heuristic(start, goal), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
+    open_set = [(heuristic(start, goal, k), start, [])] # inserisce lo stato iniziale e un percorso vuoto nella coda
     closed_set = set() # insieme degli stati già visitati
     while open_set: # finché la coda non è vuota
         f, state, path = heapq.heappop(open_set) # preleva lo stato e il percorso dalla testa della coda
@@ -56,6 +56,6 @@ def a_star(start, goal, k, N, heuristic=manhattan_distance):
                     continue
                 new_state = tuple(state[:i] + (move,) + state[i+1:]) # genera lo stato successivo
                 new_path = path + [(i, move)] # genera il percorso successivo
-                new_f = len(new_path) + heuristic(new_state, goal) # calcola la funzione di valutazione
+                new_f = len(new_path) + heuristic(new_state, goal, k) # calcola la funzione di valutazione
                 heapq.heappush(open_set, (new_f, new_state, new_path)) # inserisce lo stato e il percorso nella coda
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None

@@ -166,9 +166,9 @@ def generate_moves(pos, N):
 ## Spiegazione utilizzo
 Il progetto si compone di più parti:
 ### File di input
-Diversi esempi in formato json che permettono di caricare velocemente in memoria tutti i dati utili per eseguire gli algoritmi sopra elencati
+Diversi esempi in formato json che permettono di caricare velocemente in memoria tutti i dati utili per eseguire gli algoritmi sopra elencati. Si trovano all'interno della cartella `config`
 ### File di output
-Per ogni file di input corrisponde un file di output (in formato txt) che contiene le informazioni utili sull'esecuzione di tutti gli algoritmi. In particolare contiene il nome dell'algoritmo (nel caso di A* ci sono tutte le varianti con diverse euristiche), il tempo di esecuzione, e l'output fornito
+Per ogni file di input corrisponde un file di output (in formato txt) che contiene le informazioni utili sull'esecuzione di tutti gli algoritmi. In particolare contiene il nome dell'algoritmo (nel caso di A* ci sono tutte le varianti con diverse euristiche), il tempo di esecuzione, e l'output fornito. Si trovano all'interno della cartella `output`
 ### File algorithm.py
 File che contiene il codice per poter eseguire correttamente tutti gli algoritmi
 ### File ai.py
@@ -179,4 +179,9 @@ File di interfaccia che permette di caricare i dati in memoria (inserendo il num
 Possiamo notare che diversi algoritmi forniscono diversi output.\
 In particolare, i tempi di esecuzione per BFS incrementano quasi esponenzialmente all'aumentare della dimensione del problema (sia per numero di cavalli presenti sia per dimensione della scacchiera), mentre A* sfruttando le euristiche ha una durata molto più breve (anche se aumentando la dimensione i tempi si allungano).\
 Inoltre, possiamo notare che i percorsi generati sono diversi, ma tutti arrivano alla soluzione con lo stesso numero di mosse. Questo è dovuto all'ordine di esplorazione di tutte le possibili mosse di ogni cavallo per ogni step.
+<br/>
+
+Le cartelle config ed output contengono i file di input ed output finali. Per avere un'ulteriore certezza di non aprire file vecchi, si può scaricare il file "v4.zip", nel quale sono presenti queste 2 cartelle, con i file aggiornati all'ultima esecuzione del programma.
+Il file di output #7 contiene solo i dati relativi all'algoritmo A* con entrambe le euristiche, in quanto l'esecuzione dell'algoritmo BFS impiegava troppo tempo e non riusciva a produrre un output corretto, prima di terminare in modo inaspettato.
+
 

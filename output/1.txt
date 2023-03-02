@@ -1,4 +1,13 @@
 BFS
+Durata: 0.0009970664978027344 secondi
+[(0,
+  [(1, 2),
+   (2, 0),
+   (0, 1),
+   (2, 2)])]
+
+
+A* Manhattan
 Durata: 0.0 secondi
 [(0,
   [(1, 2),
@@ -8,15 +17,6 @@ Durata: 0.0 secondi
 
 
 A* Chebyshev
-Durata: 0.0 secondi
-[(0,
-  [(1, 2),
-   (2, 0),
-   (0, 1),
-   (2, 2)])]
-
-
-A* Manhattan
 Durata: 0.0 secondi
 [(0,
   [(1, 2),

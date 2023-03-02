@@ -41,12 +41,12 @@ def test_from_file(test_number):
     # dfs_duration = dfs_end_time - dfs_start_time # calcola la durata in secondi
 
     a_star_manhattan_start_time = time.time() # memorizza il tempo di inizio
-    a_star_manhattan_path = algorithm.a_star(start, goal, k, N) # esegue l'algoritmo
+    a_star_manhattan_path = algorithm.a_star(start, goal, k, N, algorithm.manhattan_distance) # esegue l'algoritmo
     a_star_manhattan_end_time = time.time() # memorizza il tempo di fine
     a_star_manhattan_duration = a_star_manhattan_end_time - a_star_manhattan_start_time # calcola la durata in secondi
 
     a_star_chebyshev_start_time = time.time() # memorizza il tempo di inizio
-    a_star_chebyshev_path = algorithm.a_star(start, goal, k, N) # esegue l'algoritmo
+    a_star_chebyshev_path = algorithm.a_star(start, goal, k, N, algorithm.chebyshev_distance) # esegue l'algoritmo
     a_star_chebyshev_end_time = time.time() # memorizza il tempo di fine
     a_star_chebyshev_duration = a_star_chebyshev_end_time - a_star_chebyshev_start_time # calcola la durata in secondi
 
