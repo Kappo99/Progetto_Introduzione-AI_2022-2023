@@ -66,11 +66,14 @@ def bfs(start, goal, k, N):
 
 ### Note
 La funzione BFS implementa la ricerca in ampiezza per risolvere il problema dello spostamento dei k cavalieri sulla scacchiera. La funzione prende in input i seguenti parametri:
-- `start`: una tupla contenente le posizioni di partenza dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck)).
-- `goal`: una tupla contenente le posizioni di arrivo dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck)).
-- `k`: il numero di cavalieri da spostare.
-- `N`: la dimensione della scacchiera.
+- `start`: una tupla contenente le posizioni di partenza dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck))
+- `goal`: una tupla contenente le posizioni di arrivo dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck))
+- `k`: il numero di cavalieri da spostare
+- `N`: la dimensione della scacchiera
+<br/>
+
 La funzione restituisce il percorso ottimo per spostare i cavalieri dalla posizione di partenza alla posizione di arrivo, rappresentato come una lista di mosse. Ogni mossa è una tupla nella forma (i, [(r1, c1), (r2, c2), ..., (rz, cz)]) dove i indica l'indice del cavallo che viene spostato e (r, c) indica la nuova posizione del cavallo.
+<br/>
 
 L'algoritmo utilizza una coda per memorizzare i successivi stati da esplorare. Inizialmente, il punto di partenza viene inserito nella coda insieme al percorso vuoto. Ad ogni iterazione, l'algoritmo estrae lo stato dalla testa della coda e lo espande generando tutti i possibili nuovi stati che possono essere raggiunti. Per ogni nuovo stato generato, l'algoritmo controlla se è lo stato obiettivo e, in caso contrario, lo inserisce nella coda insieme al percorso fino a quel punto. In questo modo, l'algoritmo esplora tutti gli stati possibili nello spazio degli stati in modo sistematico, partendo dallo stato iniziale e muovendosi verso gli stati successivi in ordine di distanza dalla radice.
 <br/><br/><br/><br/>
@@ -121,13 +124,21 @@ def a_star(start, goal, k, N, heuristic=manhattan_distance):
 ```
 
 ### Note (DA CORREGGERE!!)
-La funzione `a_star` riceve in input la posizione di partenza start, la posizione di arrivo goal, il numero massimo di mosse che ogni cavallo può effettuare max_moves, il numero di cavalieri k e la dimensione della scacchiera N. La funzione utilizza una coda di priorità per tenere traccia degli stati che devono essere esplorati, e la funzione heuristic per calcolare un'euristica ammissibile.
+La funzione `a_star` riceve in input:
+- `start`: una tupla contenente le posizioni di partenza dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck))
+- `goal`: una tupla contenente le posizioni di arrivo dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck))
+- `k`: il numero di cavalieri da spostare
+- `N`: la dimensione della scacchiera.
+<br/>
 
-La funzione heuristic calcola la distanza di ogni cavallo dalla sua posizione obiettivo, e restituisce la somma delle distanze massime di ogni cavallo. Questa è un'euristica ammissibile, in quanto la distanza effettiva per raggiungere l'obiettivo non può essere inferiore alla somma delle distanze di ogni cavallo.
+La funzione utilizza una coda di priorità per tenere traccia degli stati che devono essere esplorati, e la funzione heuristic per calcolare un'euristica ammissibile.
+Come funzione heuristic sono state definite la **distanza di Manhattan** e la **distanza di Chebyshev**.
+<br/>
 
-Il ciclo principale dell'algoritmo estrae lo stato con il costo f minore dalla coda di priorità, lo esamina e genera tutti i successori. Per ogni successore, l'algoritmo calcola il costo f e lo inserisce nella coda di priorità. Se uno stato è già presente nella coda di priorità con un costo inferiore, non viene inserito di nuovo.
+Il ciclo principale dell'algoritmo estrae lo stato con il percorso `path` minore dalla coda di priorità, lo esamina e genera tutti i successori. Per ogni successore, l'algoritmo calcola il percorso `new_path` e lo inserisce nella coda di priorità. Se uno stato è già presente nella coda di priorità con un percorso inferiore, non viene inserito di nuovo.
+<br/>
 
-Infine, se la coda di priorità si svuota senza trovare una soluzione, la funzione restituisce None.
+Infine, se la coda di priorità si svuota senza trovare una soluzione, la funzione restituisce None, che identifica un percorso vuoto.
 <br/><br/><br/><br/>
 
 ## Funzioni comuni
