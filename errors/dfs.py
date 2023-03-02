@@ -17,7 +17,7 @@ def dfs(k, positions, targets, N, visited):
             visited.add(i)
             for move in generate_moves(pos, N):
                 if move == targets[k]:
-                    new_positions = positions[:i] + (move,) + positions[i+1+len(visited):]
+                    new_positions = positions[:i] + (move,) + positions[i+1:]
                     res = dfs(k+1, new_positions, targets, N, visited)
                     if res is not None:
                         moves.append((i, move))
