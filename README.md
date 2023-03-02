@@ -123,7 +123,7 @@ def a_star(start, goal, k, N, heuristic=manhattan_distance):
     return None # se la coda è vuota e non è stato trovato un percorso, restituisce None
 ```
 
-### Note (DA CORREGGERE!!)
+### Note
 La funzione `a_star` riceve in input:
 - `start`: una tupla contenente le posizioni di partenza dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck))
 - `goal`: una tupla contenente le posizioni di arrivo dei cavalieri nella forma ((r1, c1), (r2, c2), ..., (rk, ck))
